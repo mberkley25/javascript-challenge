@@ -1,4 +1,4 @@
-// Get references to the tbody element, input fields and button
+// Get references to the table , select into fields
 var $tbody = document.querySelector("tbody");
 var $dateInput = document.querySelector("#datetime");
 var $searchBtn = document.querySelector("#search");
@@ -6,21 +6,21 @@ var $resetBtn = document.querySelector("#reset");
 
 
 
-// Create a copy of the data
+// copy of data from data.js
 var tableData = data;
 
-// Build table with non-filtered data
+// Build table 
 function renderTable() {
   $tbody.innerHTML = "";
   for (var i = 0; i < tableData.length; i++) {
-    // Get current address object and fields
+    // Get address objects and fields
     var address = tableData[i];
     console.log(address)
     var fields = Object.keys(address);
-    // Create new row in tbody, set index to be i + startingIndex
+    // Create new row in table
     var $row = $tbody.insertRow(i);
     for (var j = 0; j < fields.length; j++) {
-      // For each field in address object, create new cell and set inner text to be current value at current address field
+      // create cell and insert data into cells
       var field = fields[j];
       var $cell = $row.insertCell(j);
       $cell.innerText = address[field];
@@ -28,11 +28,11 @@ function renderTable() {
   }
 }
 
-// Build search table for filtered data
+// Build search
 function handleSearchButtonClick() {
   var filterDate = $dateInput.value;
   
-  // Filter on date
+  // Filter on date -- issues
   if (filterDate != "") {
     tableData = data.filter(function (address) {
       var addressDate = address.datetime;
@@ -44,10 +44,6 @@ function handleSearchButtonClick() {
   renderTable();
 }
 
-// Clear all the fields
-function handleResetButtonClick(){
-  renderTable();
-}
 
 // Render the table for the first time on page load
 renderTable();
